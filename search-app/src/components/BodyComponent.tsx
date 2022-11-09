@@ -12,17 +12,18 @@ export const BodyComponent = () => {
     >
       <Card.Section inheritPadding bg="gray.2">
         <Text weight={700} px={12} py={16}>
-          Search
+          한국 임상 정보
         </Text>
       </Card.Section>
 
       <Card.Section inheritPadding px={32} py={16} style={{ flexGrow: 1 }}>
         <TextInput></TextInput>
+        <RecommendeList></RecommendeList>
       </Card.Section>
 
       <Card.Section px={12} py={16} bg="gray.2">
         <Text weight={700} align="end">
-          Footer
+          Powered by malloc72p
         </Text>
       </Card.Section>
     </Card>
