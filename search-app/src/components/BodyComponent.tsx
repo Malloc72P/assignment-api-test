@@ -1,6 +1,22 @@
 import { Card, Text, TextInput } from "@mantine/core";
+import { RecommenedList } from "./RecommandedList";
+import { useAtom } from "jotai";
+import { FocusInput, UnFocusInput } from "../lib/InputAtom";
 
 export const BodyComponent = () => {
+  const [, focusInput] = useAtom(FocusInput);
+  const [, unFocusInput] = useAtom(UnFocusInput);
+
+  const onInputFocus = () => {
+    console.log("on focus");
+    focusInput();
+  };
+
+  const onInputBlur = () => {
+    console.log("on blur");
+    unFocusInput();
+  };
+
   return (
     <Card
       miw={600}
@@ -17,8 +33,8 @@ export const BodyComponent = () => {
       </Card.Section>
 
       <Card.Section inheritPadding px={32} py={16} style={{ flexGrow: 1 }}>
-        <TextInput></TextInput>
-        <RecommendeList></RecommendeList>
+        <TextInput onFocus={onInputFocus} onBlur={onInputBlur}></TextInput>
+        <RecommenedList />
       </Card.Section>
 
       <Card.Section px={12} py={16} bg="gray.2">
