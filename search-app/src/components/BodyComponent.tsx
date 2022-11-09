@@ -1,25 +1,10 @@
-import { Card, Text, TextInput } from "@mantine/core";
-import { RecommenedList } from "./RecommandedList";
-import { useAtom } from "jotai";
-import { FocusInput, UnFocusInput } from "../lib/InputAtom";
+import { Card, Text } from "@mantine/core";
+import { SearchComponent } from "./SearchComponent";
 
 export const BodyComponent = () => {
-  const [, focusInput] = useAtom(FocusInput);
-  const [, unFocusInput] = useAtom(UnFocusInput);
-
-  const onInputFocus = () => {
-    console.log("on focus");
-    focusInput();
-  };
-
-  const onInputBlur = () => {
-    console.log("on blur");
-    unFocusInput();
-  };
-
   return (
     <Card
-      miw={600}
+      miw={720}
       shadow="sm"
       radius="md"
       withBorder
@@ -28,13 +13,12 @@ export const BodyComponent = () => {
     >
       <Card.Section inheritPadding bg="gray.2">
         <Text weight={700} px={12} py={16}>
-          한국 임상 정보
+          키워드를 입력해주세요
         </Text>
       </Card.Section>
 
       <Card.Section inheritPadding px={32} py={16} style={{ flexGrow: 1 }}>
-        <TextInput onFocus={onInputFocus} onBlur={onInputBlur}></TextInput>
-        <RecommenedList />
+        <SearchComponent />
       </Card.Section>
 
       <Card.Section px={12} py={16} bg="gray.2">

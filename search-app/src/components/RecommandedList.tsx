@@ -1,16 +1,23 @@
 import { Card, Button } from "@mantine/core";
 import { useAtom } from "jotai";
 import { ReadInputAtom } from "../lib/InputAtom";
+import { ReadRecommandedData, Sick } from "../lib/RecommandedData";
+import { IconSearch } from "@tabler/icons";
 
-const RecommenedItem = () => {
+interface RecommenedItemProps {
+  sick: Sick;
+}
+
+const RecommenedItem = ({ sick }: RecommenedItemProps) => {
   return (
     <Button
       variant="subtle"
       fullWidth
       color="dark"
-      style={{ textAlign: "left" }}
+      leftIcon={<IconSearch size="16" />}
+      style={{ display: "flex" }}
     >
-      강아지
+      {sick.sickNm}
     </Button>
   );
 };
@@ -19,6 +26,7 @@ export type RecommenedListProps = {};
 
 export const RecommenedList = () => {
   const [InputAtom] = useAtom(ReadInputAtom);
+  const [recommandedData] = useAtom(ReadRecommandedData);
 
   return (
     <Card
@@ -27,31 +35,14 @@ export const RecommenedList = () => {
       withBorder
       mt="md"
       mah={400}
-      style={{ display: InputAtom.focus ? "block" : "none", overflow: "auto" }}
+      style={{
+        display: InputAtom.focus ? "block" : "none",
+        overflow: "scroll",
+      }}
     >
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
-      <RecommenedItem></RecommenedItem>
+      {recommandedData.map((sick) => (
+        <RecommenedItem sick={sick}></RecommenedItem>
+      ))}
     </Card>
   );
 };

@@ -7,9 +7,9 @@ import {
   Burger,
   Paper,
   Transition,
+  Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { MantineLogo } from "@mantine/ds";
 
 const HEADER_HEIGHT = 60;
 
@@ -123,7 +123,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
   return (
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
-        <MantineLogo size={28} />
+        <Text weight={700}>🧪 한국임상정보</Text>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
