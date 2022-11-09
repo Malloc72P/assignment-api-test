@@ -24,7 +24,7 @@ function App() {
   return (
     <Flex className={classes.appWrapper} direction="column">
       <HeaderResponsive links={links}></HeaderResponsive>
-      <Flex className={classes.articleWrapper} justify="center" pt={140}>
+      <Flex className={classes.articleWrapper} justify="center" pt={60}>
         <BodyComponent></BodyComponent>
       </Flex>
       <div style={{ height: "60px" }}></div>
