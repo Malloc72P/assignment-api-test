@@ -2,8 +2,6 @@ import React from "react";
 import { BodyComponent } from "./components/BodyComponent";
 import { HeaderLink, HeaderResponsive } from "./components/Header";
 import { createStyles, Flex } from "@mantine/core";
-import { ReadRecommandedData } from "./lib/RecommandedData";
-import { useAtom } from "jotai";
 
 const links: HeaderLink[] = [
   { link: "", label: "link1" },
