@@ -6,9 +6,11 @@ export type Sick = {
 };
 
 interface RecommandedDataProps {
+  keyword: string;
   sicks: Sick[];
 }
 const RecommandedData = atom<RecommandedDataProps>({
+  keyword: "",
   sicks: [],
 });
 
@@ -17,5 +19,13 @@ export const ReadRecommandedData = atom((get) => {
 });
 
 export const WriteRecommandedData = atom(null, (get, set, data: Sick[]) => {
-  set(RecommandedData, { ...get(ReadRecommandedData), sicks: [...data] });
+  set(RecommandedData, { ...get(RecommandedData), sicks: [...data] });
+});
+
+export const ReadKeyword = atom((get) => {
+  return get(RecommandedData).keyword;
+});
+
+export const WriteKeyword = atom(null, (get, set, keyword: string) => {
+  set(RecommandedData, { ...get(RecommandedData), keyword: keyword });
 });

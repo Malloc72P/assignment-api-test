@@ -1,7 +1,7 @@
-import { Card, Button } from "@mantine/core";
+import { Card, Button, Text } from "@mantine/core";
 import { useAtom } from "jotai";
 import { ReadInputAtom } from "../lib/InputAtom";
-import { ReadRecommandedData, Sick } from "../lib/RecommandedData";
+import { ReadKeyword, ReadRecommandedData, Sick } from "../lib/RecommandedData";
 import { IconSearch } from "@tabler/icons";
 
 interface RecommenedItemProps {
@@ -9,6 +9,11 @@ interface RecommenedItemProps {
 }
 
 const RecommenedItem = ({ sick }: RecommenedItemProps) => {
+  const [keyword] = useAtom(ReadKeyword);
+  const name = sick.sickNm;
+
+  const matchText = name.split(new RegExp(`(${keyword})`, "gi"));
+
   return (
     <Button
       variant="subtle"
@@ -17,7 +22,17 @@ const RecommenedItem = ({ sick }: RecommenedItemProps) => {
       leftIcon={<IconSearch size="16" />}
       style={{ display: "flex" }}
     >
-      {sick.sickNm}
+      {matchText.map((splitedText, index) => {
+        return splitedText === keyword ? (
+          <Text key={sick.sickCd + "bt" + index} weight={700}>
+            {splitedText}
+          </Text>
+        ) : (
+          <Text key={sick.sickCd + "t" + index} weight={400}>
+            {splitedText}
+          </Text>
+        );
+      })}
     </Button>
   );
 };
@@ -40,9 +55,13 @@ export const RecommenedList = () => {
         overflow: "scroll",
       }}
     >
-      {recommandedData.map((sick) => (
-        <RecommenedItem sick={sick}></RecommenedItem>
-      ))}
+      {recommandedData.length > 0 ? (
+        recommandedData.map((sick) => (
+          <RecommenedItem key={sick.sickCd} sick={sick}></RecommenedItem>
+        ))
+      ) : (
+        <Text>검색어 없음</Text>
+      )}
     </Card>
   );
 };

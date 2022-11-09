@@ -3,13 +3,14 @@ import { RecommenedList } from "./RecommandedList";
 
 import { useAtom } from "jotai";
 import { FocusInput, UnFocusInput } from "../lib/InputAtom";
-import axios from "axios";
-import { Sick, WriteRecommandedData } from "../lib/RecommandedData";
+import { WriteKeyword, WriteRecommandedData } from "../lib/RecommandedData";
+import { requestAPI } from "../lib/ApiRequester";
 
 export const SearchComponent = () => {
   const [, focusInput] = useAtom(FocusInput);
   const [, unFocusInput] = useAtom(UnFocusInput);
   const [, writeRecommandedData] = useAtom(WriteRecommandedData);
+  const [, writeKeyword] = useAtom(WriteKeyword);
 
   const onInputFocus = () => {
     console.log("on focus");
@@ -26,15 +27,16 @@ export const SearchComponent = () => {
       return;
     }
 
-    const response = await axios.get<Sick[]>(
-      `http://localhost:4000/sick?q=${event.target.value}`
-    );
-    writeRecommandedData(response.data);
+    const data = await requestAPI(event.target.value);
+
+    writeRecommandedData(data);
+    writeKeyword(event.target.value);
   };
 
   return (
     <>
       <TextInput
+        autoComplete="off"
         onFocus={onInputFocus}
         onBlur={onInputBlur}
         onChange={onInputChange}
